@@ -9,6 +9,7 @@
 
 **后续会持续更新，若出现BUG欢迎提交**
 
+**博客地址：[https://www.hujiayucc.cn/qq_sender.html](https://www.hujiayucc.cn/qq_sender.html)**
 ### 截图
 ![172813496de38c2a.jpg](https://imgs.hujiayucc.cn/2023/01/12/63bf3d624e14c.jpg)
 ![Screenshot_2023-01-12-03-45-51-518_com.hujiayucc..jpg](https://imgs.hujiayucc.cn/2023/01/12/63bf3d998ab61.jpg)
