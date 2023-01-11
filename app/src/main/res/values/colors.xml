@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="login_edittext_background_color">#FFF2F3F7</color>
+    <color name="login_background_color1">#FF0E80EE</color>
+    <color name="login_background_color2">#1C85EC</color>
+    <color name="login_background_color3">#FF35A4FF</color>
+    <color name="login_background_color4">#4BADFD</color>
+    <color name="login_background_color5">#FF00CAFC</color>
+</resources>

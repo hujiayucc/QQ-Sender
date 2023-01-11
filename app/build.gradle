@@ -1,0 +1,74 @@
+//file:noinspection GroovyAssignabilityCheck
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+//noinspection GroovyMissingReturnStatement
+android {
+    namespace 'com.hujiayucc.qqsender'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.hujiayucc.qqsender"
+        minSdk 26
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
+}
+
+dependencies {
+    String mirai_version = "2.13.2"
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+
+    implementation "net.mamoe:mirai-core:$mirai_version"
+    api(platform("net.mamoe:mirai-bom:$mirai_version"))
+    api("net.mamoe:mirai-core-api")     // 编译代码使用
+    runtimeOnly("net.mamoe:mirai-core") // 运行时使用
+    implementation 'com.jacktuotuo.customview:verificationcodeview:1.0.5'
+    implementation 'com.google.code.gson:gson:2.10'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    //noinspection GradleDependency
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}

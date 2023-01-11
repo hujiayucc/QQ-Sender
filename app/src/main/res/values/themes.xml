@@ -1,0 +1,7 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.QQ群发" parent="Theme.Material3.DayNight.NoActionBar">
+
+    </style>
+    <style name="Theme.QQ群发" parent="Base.Theme.QQ群发"/>
+</resources>

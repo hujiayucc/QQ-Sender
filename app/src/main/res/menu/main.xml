@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".ui.activity.MainActivity" >
+
+    <item
+            android:id="@+id/send"
+            app:showAsAction="always"
+            android:title="确定"
+            tools:ignore="AlwaysShowAction"/>
+
+    <item
+            android:id="@+id/menu_account"
+            android:title="切换账号"
+            app:showAsAction="never"/>
+
+    <item
+            android:id="@+id/menu_exit"
+            android:title="退出"
+            app:showAsAction="never"/>
+</menu>

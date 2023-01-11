@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".ui.activity.LoginActivity">
+
+    <ImageView
+            android:id="@+id/qqface"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher"/>
+
+    <EditText
+            android:id="@+id/qq_id"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center"
+            android:background="@drawable/bg_username"
+            android:hint="输入账号"
+            android:maxLength="10"
+            android:inputType="number"
+            android:layout_gravity="center" />
+
+    <EditText
+            android:id="@+id/qq_password"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center"
+            android:maxLength="16"
+            android:background="@drawable/bg_username"
+            android:hint="输入密码"
+            android:inputType="textPassword"
+            android:layout_gravity="center" />
+
+    <CheckBox
+            android:id="@+id/auto_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:text="自动登录"
+            android:textSize="16sp"
+            android:layout_gravity="left"/>
+
+    <TextView
+            android:id="@+id/protocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="-35dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_gravity="right"
+            android:textSize="16sp"
+            android:text="切换登录协议"/>
+
+    <ImageButton
+            android:id="@+id/btn_login"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/login_background"
+            android:src="@drawable/login"/>
+</LinearLayout>
