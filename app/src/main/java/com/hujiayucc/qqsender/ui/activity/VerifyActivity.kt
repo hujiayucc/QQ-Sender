@@ -72,10 +72,6 @@ class VerifyActivity : AppCompatActivity() {
                 val jsData = gson.parse(data)
                 if (method == "onVerifyCAPTCHA") {
                     verificationResult.complete(jsData.asJsonObject["ticket"].asString)
-                    Thread {
-                        Thread.sleep(5000)
-                        finish()
-                    }
                 }
             }
         }

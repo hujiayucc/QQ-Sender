@@ -170,4 +170,3 @@ class BaseExListAdapter(
         lateinit var checkBox: CheckBox
     }
 }
-

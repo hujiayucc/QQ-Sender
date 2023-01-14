@@ -3,10 +3,8 @@ package com.hujiayucc.qqsender.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import com.hujiayucc.qqsender.ui.activity.VerifyActivity
 import com.hujiayucc.qqsender.ui.activity.VerifyCodeActivity
-import com.hujiayucc.qqsender.utils.Const.Companion.TAG
 import kotlinx.coroutines.CompletableDeferred
 import net.mamoe.mirai.Bot
 import net.mamoe.mirai.network.RetryLaterException
@@ -34,8 +32,6 @@ class LoginSolver(private val context: Context) : LoginSolver() {
             requests.sms?.requestSms()
             return requests.sms!!.solved(verificationResult.await())
         } catch (e: RetryLaterException) {
-            Log.d(TAG, "验证码：${requests.fallback!!.url}")
-            Log.d(TAG, "验证码2：${requests.preferSms}")
             e.printStackTrace()
             onSolveSliderCaptcha(bot, requests.fallback!!.url)
             return requests.fallback!!.solved()

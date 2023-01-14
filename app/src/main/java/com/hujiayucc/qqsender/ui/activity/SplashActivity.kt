@@ -80,28 +80,25 @@ class SplashActivity : AppCompatActivity() {
         Thread {
             val time = System.currentTimeMillis() + 30000
             while (true) {
-                if (bot?.isOnline == false) return@Thread
+                if (bot?.isOnline == true) return@Thread
                 if (System.currentTimeMillis() > time) {
                     alertDialog.dismiss()
-                    runOnUiThread({
-                        AlertDialog.Builder(this@SplashActivity)
-                            .setTitle("登录失败")
-                            .setCancelable(false)
-                            .setMessage("登录超时，请重新尝试")
-                            .setPositiveButton("确定", object : DialogInterface.OnClickListener {
+                    bot?.close()
+                    runOnUiThread {
+                        AlertDialog.Builder(this)
+                            .setMessage("登录超时")
+                            .setPositiveButton("关闭", object : DialogInterface.OnClickListener {
                                 override fun onClick(p0: DialogInterface?, p1: Int) {
                                     p0?.dismiss()
-                                    val intent = Intent(applicationContext, LoginActivity::class.java)
+                                    val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                                     startActivity(intent)
                                     finish()
                                 }
-                            })
-                            .create().show()
-                    })
-                    bot?.close()
+                            }).create().show()
+                    }
                     return@Thread
                 }
-                Thread.sleep(300)
+                Thread.sleep(500)
             }
         }.start()
 

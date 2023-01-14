@@ -166,10 +166,19 @@ class LoginActivity : AppCompatActivity() {
         Thread {
             val time = System.currentTimeMillis() + 30000
             while (true) {
-                if (bot?.isOnline == false) return@Thread
+                if (bot?.isOnline == true) return@Thread
                 if (System.currentTimeMillis() > time) {
                     alertDialog.dismiss()
                     bot?.close()
+                    runOnUiThread {
+                        AlertDialog.Builder(this)
+                            .setMessage("登录超时")
+                            .setPositiveButton("关闭", object : OnClickListener {
+                                override fun onClick(p0: DialogInterface?, p1: Int) {
+                                    p0?.dismiss()
+                                }
+                            }).create().show()
+                    }
                     return@Thread
                 }
                 Thread.sleep(500)
@@ -208,7 +217,7 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: LoginFailedException) {
                 alertDialog.dismiss()
                 Log.d(TAG, "失败：${e.message}")
-                runOnUiThread({
+                runOnUiThread {
                     AlertDialog.Builder(this@LoginActivity)
                         .setTitle("登录失败")
                         .setCancelable(false)
@@ -219,7 +228,7 @@ class LoginActivity : AppCompatActivity() {
                             }
                         })
                         .create().show()
-                })
+                }
                 e.printStackTrace()
             }
         }

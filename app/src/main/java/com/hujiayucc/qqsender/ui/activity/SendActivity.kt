@@ -2,8 +2,6 @@ package com.hujiayucc.qqsender.ui.activity
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
-import android.content.DialogInterface.OnClickListener
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,7 +13,9 @@ import androidx.core.view.WindowCompat
 import com.google.android.material.slider.Slider
 import com.hujiayucc.qqsender.R
 import com.hujiayucc.qqsender.databinding.ActivitySendBinding
+import com.hujiayucc.qqsender.utils.Const
 import com.hujiayucc.qqsender.utils.Const.Companion.bot
+import com.hujiayucc.qqsender.utils.Const.Companion.grouplist
 import com.hujiayucc.qqsender.utils.Const.Companion.qqlist
 import com.hujiayucc.qqsender.utils.Toast
 import kotlinx.coroutines.launch
@@ -33,19 +33,6 @@ class SendActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        if (qqlist.size < 1) {
-            AlertDialog.Builder(this)
-                .setTitle("温馨提示")
-                .setMessage("QQ列表为空")
-                .setCancelable(false)
-                .setPositiveButton("关闭", object : OnClickListener {
-                    override fun onClick(p0: DialogInterface?, p1: Int) {
-                        val intent = Intent(applicationContext, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                })
-        }
         binding = ActivitySendBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
@@ -76,7 +63,7 @@ class SendActivity : AppCompatActivity() {
             }
 
             R.id.send -> {
-                if (message.text.length < 1) {
+                if (message.text.isEmpty()) {
                     Toast.Long("请输入发送内容")
                     return false
                 }
@@ -91,34 +78,72 @@ class SendActivity : AppCompatActivity() {
                     var int = 0
                     var success = 0
                     var fail = 0
-                    for (friend in qqlist.toList()) {
-                        int++
-                        try {
-                            val message: Message = PlainText(this@SendActivity.message.text)
-                            bot!!.launch {
-                                friend.sendMessage(message)
+                    when (Const.page) {
+                        0 -> {
+                            for (friend in qqlist.toList()) {
+                                int++
+                                try {
+                                    val message: Message = PlainText(this@SendActivity.message.text)
+                                    bot!!.launch {
+                                        friend.sendMessage(message)
+                                    }
+                                    success++
+                                } catch (e: Exception) {
+                                    fail++
+                                    e.printStackTrace()
+                                }
+                                Thread.sleep(yc.toLong())
+                                if (int >= qqlist.size) {
+                                    runOnUiThread {
+                                        alertDialog.dismiss()
+                                        AlertDialog.Builder(this)
+                                            .setTitle("发送完成")
+                                            .setMessage("共发送：${qqlist.size}\n成功：$success\n失败：$fail")
+                                            .setCancelable(false)
+                                            .setPositiveButton("关闭", object : DialogInterface.OnClickListener {
+                                                override fun onClick(p0: DialogInterface?, p1: Int) {
+                                                    p0?.dismiss()
+                                                }
+                                            })
+                                            .create().show()
+                                    }
+                                }
                             }
-                            success++
-                        } catch (e: Exception) {
-                            fail++
-                            e.printStackTrace()
                         }
-                        Thread.sleep(yc.toLong())
-                        if (int >= qqlist.size) {
-                            runOnUiThread {
-                                alertDialog.dismiss()
-                                AlertDialog.Builder(this)
-                                    .setTitle("发送完成")
-                                    .setMessage("共发送：${qqlist.size}\n成功：$success\n失败：$fail")
-                                    .setCancelable(false)
-                                    .setPositiveButton("关闭", object : OnClickListener {
-                                        override fun onClick(p0: DialogInterface?, p1: Int) {
-                                            p0?.dismiss()
-                                        }
-                                    })
-                                    .create().show()
+
+                        1 -> {
+                            for (group in grouplist.toList()) {
+                                int++
+                                try {
+                                    val message: Message = PlainText(this@SendActivity.message.text)
+                                    bot!!.launch {
+                                        group.sendMessage(message)
+                                    }
+                                    success++
+                                } catch (e: Exception) {
+                                    fail++
+                                    e.printStackTrace()
+                                }
+                                Thread.sleep(yc.toLong())
+                                if (int >= qqlist.size) {
+                                    runOnUiThread {
+                                        alertDialog.dismiss()
+                                        AlertDialog.Builder(this)
+                                            .setTitle("发送完成")
+                                            .setMessage("共发送：${qqlist.size}\n成功：$success\n失败：$fail")
+                                            .setCancelable(false)
+                                            .setPositiveButton("关闭", object : DialogInterface.OnClickListener {
+                                                override fun onClick(p0: DialogInterface?, p1: Int) {
+                                                    p0?.dismiss()
+                                                }
+                                            })
+                                            .create().show()
+                                    }
+                                }
                             }
                         }
+
+                        else -> {}
                     }
                 }.start()
             }

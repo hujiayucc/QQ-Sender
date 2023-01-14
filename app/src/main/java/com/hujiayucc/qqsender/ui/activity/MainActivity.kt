@@ -1,107 +1,55 @@
 package com.hujiayucc.qqsender.ui.activity
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ExpandableListView
-import androidx.appcompat.app.AlertDialog
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.hujiayucc.qqsender.R
 import com.hujiayucc.qqsender.ui.base.BaseActivity
-import com.hujiayucc.qqsender.ui.base.BaseExListAdapter
-import com.hujiayucc.qqsender.ui.base.GroupBean
-import com.hujiayucc.qqsender.ui.base.ItemsBean
+import com.hujiayucc.qqsender.ui.base.BaseAdapter
+import com.hujiayucc.qqsender.ui.fragment.FriendFragment
+import com.hujiayucc.qqsender.ui.fragment.GroupFragment
+import com.hujiayucc.qqsender.utils.Const
 import com.hujiayucc.qqsender.utils.Const.Companion.bot
-import com.hujiayucc.qqsender.utils.Const.Companion.qqlist
+import com.hujiayucc.qqsender.utils.Const.Companion.page
 import com.hujiayucc.qqsender.utils.Toast
 
 
 class MainActivity : BaseActivity() {
-
-    private lateinit var listView: ExpandableListView
-    private lateinit var refresh: SwipeRefreshLayout
-    private var groups = java.util.ArrayList<GroupBean>()
-    private var items = java.util.ArrayList<ItemsBean>()
-    private var child = java.util.ArrayList<java.util.ArrayList<ItemsBean>>()
-
+    private lateinit var viewPager: ViewPager
+    private val fragmentList = ArrayList<Fragment>()
+    private lateinit var adapter: BaseAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        listView = binding.listView
-        refresh = binding.refresh
-        refresh.setColorSchemeColors(getColor(android.R.color.holo_orange_light))
-        refresh.setOnRefreshListener {
-            runOnUiThread {
-                try {
-                    initData()
-                    refresh.isRefreshing = false
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        }
+        viewPager = binding.viewPager
+        fragmentList.add(FriendFragment())
+        fragmentList.add(GroupFragment())
+        adapter = BaseAdapter(supportFragmentManager, fragmentList)
+        viewPager.adapter = adapter
+        viewPager.currentItem = 0
+        viewPager.addOnPageChangeListener(object : OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
-        listView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
-            try {
-                val info = child[groupPosition][childPosition]
-                info.check = !info.check
-                info.checkBox!!.isChecked = info.check
-                if (info.check) qqlist.add(info.friend)
-                else qqlist.remove(info.friend)
-                for (i in child[groupPosition].toList()) {
-                    if (!i.check) {
-                        groups[groupPosition].check = false
-                        groups[groupPosition].checkBox!!.isChecked = groups[groupPosition].check
-                        return@setOnChildClickListener false
-                    }
-                    groups[groupPosition].check = true
-                }
-                groups[groupPosition].checkBox!!.isChecked = groups[groupPosition].check
-            } catch (e: Exception) {
-                AlertDialog.Builder(this@MainActivity)
-                    .setTitle("错误信息")
-                    .setMessage(e.toString())
-                    .setPositiveButton("关闭", object : DialogInterface.OnClickListener {
-                        override fun onClick(p0: DialogInterface?, p1: Int) {
-                            p0?.dismiss()
-                        }
-                    })
-                    .create().show()
-                e.printStackTrace()
             }
-            false
-        }
 
-        try {
-            initData()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+            override fun onPageSelected(position: Int) {
+                page = position
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //导入菜单布局
         menuInflater.inflate(R.menu.main, menu)
         return true
-    }
-
-    private fun initData() {
-        groups.clear()
-        child.clear()
-        items.clear()
-        refresh.isRefreshing = true
-        for (friendGroup in bot!!.friendGroups.asCollection().toList()) {
-            groups.add(GroupBean("${friendGroup.name}  (${friendGroup.count})"))
-            for (friend in friendGroup.friends.toList()) {
-                items.add(ItemsBean(friend, friend.id, friend.remark))
-            }
-            child.add(ArrayList(items))
-            items.clear()
-        }
-        listView.setAdapter(BaseExListAdapter(this, groups, child))
-        refresh.isRefreshing = false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -120,11 +68,26 @@ class MainActivity : BaseActivity() {
             }
 
             R.id.send -> {
-                if (qqlist.size < 1) {
-                    Toast.Long("先选择发送目标吧")
-                } else {
-                    val intent = Intent(applicationContext, SendActivity::class.java)
-                    startActivity(intent)
+                when (page) {
+                    0 -> {
+                        if (Const.qqlist.size < 1) {
+                            Toast.Long("先选择发送目标吧")
+                        } else {
+                            val intent = Intent(applicationContext, SendActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+
+                    1 -> {
+                        if (Const.grouplist.size < 1) {
+                            Toast.Long("先选择发送目标吧")
+                        } else {
+                            val intent = Intent(applicationContext, SendActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+
+                    else -> {}
                 }
             }
 

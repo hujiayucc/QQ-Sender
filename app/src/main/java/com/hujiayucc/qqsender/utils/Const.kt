@@ -9,6 +9,7 @@ import com.hujiayucc.qqsender.Applications.Companion.context
 import com.hujiayucc.qqsender.R
 import net.mamoe.mirai.Bot
 import net.mamoe.mirai.contact.Friend
+import net.mamoe.mirai.contact.Group
 import net.mamoe.mirai.utils.BotConfiguration
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -47,6 +48,8 @@ class Const {
         var settings: SharedPreferences? = null
         var editor: SharedPreferences.Editor? = null
         var qqlist: ArrayList<Friend> = ArrayList()
+        var grouplist: ArrayList<Group> = ArrayList()
+        var page = 0
 
         /** 登录按钮背景色 */
         val colors = intArrayOf(
