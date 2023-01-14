@@ -92,7 +92,6 @@ class SplashActivity : AppCompatActivity() {
                                     p0?.dismiss()
                                     val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                                     startActivity(intent)
-                                    finish()
                                 }
                             }).create().show()
                     }
