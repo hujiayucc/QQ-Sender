@@ -14,8 +14,8 @@ android {
         applicationId "com.hujiayucc.qqsender"
         minSdk 26
         targetSdk 33
-        versionCode 20
-        versionName "2.0"
+        versionCode 35
+        versionName "2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
