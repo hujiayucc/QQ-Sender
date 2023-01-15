@@ -2,10 +2,12 @@ package com.hujiayucc.qqsender.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.hujiayucc.qqsender.R
@@ -46,6 +48,37 @@ class GroupFragment : Fragment() {
                 grouplist.add(groups[p2].group)
             else
                 grouplist.remove(groups[p2].group)
+        }
+
+        listView.setOnItemLongClickListener { p0, p1, p2, p3 ->
+            val popupMenu = PopupMenu(requireContext(), p1)
+            popupMenu.menuInflater.inflate(R.menu.groups,popupMenu.menu)
+            popupMenu.gravity = Gravity.RIGHT
+            popupMenu.setOnMenuItemClickListener { p0 ->
+                when (p0.itemId) {
+                    R.id.add_all -> {
+                        for (group in groups) {
+                            if (!group.check) grouplist.add(group.group)
+                            group.check = true
+                            group.checkBox?.isChecked = true
+                        }
+                    }
+
+                    R.id.clear_all -> {
+                        grouplist.clear()
+                        for (group in groups) {
+                            if (group.check) grouplist.remove(group.group)
+                            group.check = false
+                            group.checkBox?.isChecked = false
+                        }
+                    }
+
+                    else -> {}
+                }
+                false
+            }
+            popupMenu.show()
+            false
         }
 
         try {

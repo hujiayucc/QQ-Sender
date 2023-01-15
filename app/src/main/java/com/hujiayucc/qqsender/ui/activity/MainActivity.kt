@@ -8,26 +8,31 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.google.android.material.tabs.TabLayout
 import com.hujiayucc.qqsender.R
 import com.hujiayucc.qqsender.ui.base.BaseActivity
 import com.hujiayucc.qqsender.ui.base.BaseAdapter
 import com.hujiayucc.qqsender.ui.fragment.FriendFragment
 import com.hujiayucc.qqsender.ui.fragment.GroupFragment
-import com.hujiayucc.qqsender.utils.Const
 import com.hujiayucc.qqsender.utils.Const.Companion.bot
+import com.hujiayucc.qqsender.utils.Const.Companion.grouplist
 import com.hujiayucc.qqsender.utils.Const.Companion.page
+import com.hujiayucc.qqsender.utils.Const.Companion.qqlist
 import com.hujiayucc.qqsender.utils.Toast
 
 
 class MainActivity : BaseActivity() {
+    private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager
     private val fragmentList = ArrayList<Fragment>()
     private lateinit var adapter: BaseAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        tabLayout = binding.tabLayout
         viewPager = binding.viewPager
         fragmentList.add(FriendFragment())
         fragmentList.add(GroupFragment())
+        tabLayout.setupWithViewPager(viewPager)
         adapter = BaseAdapter(supportFragmentManager, fragmentList)
         viewPager.adapter = adapter
         viewPager.currentItem = 0
@@ -70,7 +75,7 @@ class MainActivity : BaseActivity() {
             R.id.send -> {
                 when (page) {
                     0 -> {
-                        if (Const.qqlist.size < 1) {
+                        if (qqlist.size < 1) {
                             Toast.Long("先选择发送目标吧")
                         } else {
                             val intent = Intent(applicationContext, SendActivity::class.java)
@@ -79,7 +84,7 @@ class MainActivity : BaseActivity() {
                     }
 
                     1 -> {
-                        if (Const.grouplist.size < 1) {
+                        if (grouplist.size < 1) {
                             Toast.Long("先选择发送目标吧")
                         } else {
                             val intent = Intent(applicationContext, SendActivity::class.java)
