@@ -12,10 +12,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="55dp"
             android:layout_marginTop="130dp"
-            android:text="请输入验证码"
+            android:text="@string/input_code"
             android:textSize="27sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <com.tuo.customview.VerificationCodeView
             android:id="@+id/verify"

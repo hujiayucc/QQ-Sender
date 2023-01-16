@@ -12,7 +12,8 @@
             android:layout_height="70dp"
             android:layout_marginTop="100dp"
             android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher"
+            tools:ignore="ContentDescription"/>
 
     <EditText
             android:id="@+id/qq_id"
@@ -23,10 +24,11 @@
             android:layout_marginRight="30dp"
             android:gravity="center"
             android:background="@drawable/bg_username"
-            android:hint="输入账号"
+            android:hint="@string/input_account"
             android:maxLength="10"
             android:inputType="number"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            tools:ignore="Autofill"/>
 
     <EditText
             android:id="@+id/qq_password"
@@ -38,9 +40,10 @@
             android:gravity="center"
             android:maxLength="16"
             android:background="@drawable/bg_username"
-            android:hint="输入密码"
+            android:hint="@string/input_password"
             android:inputType="textPassword"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            tools:ignore="Autofill"/>
 
     <CheckBox
             android:id="@+id/auto_login"
@@ -49,9 +52,10 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:text="自动登录"
+            android:text="@string/auto_login"
             android:textSize="16sp"
-            android:layout_gravity="left"/>
+            android:layout_gravity="left"
+            tools:ignore="RtlHardcoded"/>
 
     <TextView
             android:id="@+id/protocol"
@@ -63,7 +67,8 @@
             android:layout_marginRight="40dp"
             android:layout_gravity="right"
             android:textSize="16sp"
-            android:text="切换登录协议"/>
+            android:text="@string/check_login_type"
+            tools:ignore="RtlHardcoded"/>
 
     <ImageButton
             android:id="@+id/btn_login"
@@ -72,5 +77,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:background="@drawable/login_background"
-            android:src="@drawable/login"/>
+            android:src="@drawable/login"
+            tools:ignore="ContentDescription"/>
 </LinearLayout>

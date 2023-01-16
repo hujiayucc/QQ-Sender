@@ -37,4 +37,14 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus vestibulum. Fusce
         dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="check_all">全选</string>
+    <string name="check_not_all">全不选</string>
+    <string name="ok">确定</string>
+    <string name="check_account">切换账号</string>
+    <string name="exit">退出</string>
+    <string name="input_account">输入账号</string>
+    <string name="input_password">输入密码</string>
+    <string name="auto_login">自动登录</string>
+    <string name="check_login_type">切换登录协议</string>
+    <string name="input_code">请输入验证码</string>
 </resources>

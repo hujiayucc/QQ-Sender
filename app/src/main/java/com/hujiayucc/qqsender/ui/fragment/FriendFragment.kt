@@ -84,6 +84,7 @@ class FriendFragment : Fragment() {
     }
 
     private fun initData() {
+        qqlist.clear()
         groups.clear()
         child.clear()
         items.clear()

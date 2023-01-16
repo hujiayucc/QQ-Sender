@@ -27,6 +27,7 @@ class GroupFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_group, null, false)
     }
 
+    @SuppressLint("RtlHardcoded")
     override fun onStart() {
         super.onStart()
         listView = requireView().findViewById(R.id.listView)
@@ -52,10 +53,10 @@ class GroupFragment : Fragment() {
 
         listView.setOnItemLongClickListener { p0, p1, p2, p3 ->
             val popupMenu = PopupMenu(requireContext(), p1)
-            popupMenu.menuInflater.inflate(R.menu.groups,popupMenu.menu)
+            popupMenu.menuInflater.inflate(R.menu.groups, popupMenu.menu)
             popupMenu.gravity = Gravity.RIGHT
-            popupMenu.setOnMenuItemClickListener { p0 ->
-                when (p0.itemId) {
+            popupMenu.setOnMenuItemClickListener { p4 ->
+                when (p4.itemId) {
                     R.id.add_all -> {
                         for (group in groups) {
                             if (!group.check) grouplist.add(group.group)
@@ -89,6 +90,7 @@ class GroupFragment : Fragment() {
     }
 
     private fun initData() {
+        grouplist.clear()
         groups.clear()
         refresh.isRefreshing = true
         for (group in Const.bot!!.groups.toList()) {
