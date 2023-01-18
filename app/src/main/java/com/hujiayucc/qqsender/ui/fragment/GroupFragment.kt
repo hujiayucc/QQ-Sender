@@ -74,6 +74,15 @@ class GroupFragment : Fragment() {
                         }
                     }
 
+                    R.id.fx -> {
+                        for (group in groups) {
+                            if (!group.check) grouplist.add(group.group)
+                            else grouplist.remove(group.group)
+                            group.check = !group.check
+                            group.checkBox?.isChecked = group.check
+                        }
+                    }
+
                     else -> {}
                 }
                 false

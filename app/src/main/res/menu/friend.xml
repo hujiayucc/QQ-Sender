@@ -9,6 +9,10 @@
             android:title="@string/check_not_all"/>
 
     <item
-            android:id="@+id/fx"
-            android:title="@string/fx"/>
+            android:id="@+id/open_all"
+            android:title="@string/open_all"/>
+
+    <item
+            android:id="@+id/close_all"
+            android:title="@string/close_all"/>
 </menu>

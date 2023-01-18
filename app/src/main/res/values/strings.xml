@@ -47,4 +47,7 @@
     <string name="auto_login">自动登录</string>
     <string name="check_login_type">切换登录协议</string>
     <string name="input_code">请输入验证码</string>
+    <string name="fx">反选</string>
+    <string name="open_all">全部展开</string>
+    <string name="close_all">全部合并</string>
 </resources>

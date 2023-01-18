@@ -3,18 +3,20 @@ package com.hujiayucc.qqsender.ui.fragment
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.hujiayucc.qqsender.R
 import com.hujiayucc.qqsender.ui.base.BaseExListAdapter
 import com.hujiayucc.qqsender.ui.base.GroupBean
 import com.hujiayucc.qqsender.ui.base.ItemsBean
-import com.hujiayucc.qqsender.utils.Const
+import com.hujiayucc.qqsender.utils.Const.Companion.bot
 import com.hujiayucc.qqsender.utils.Const.Companion.qqlist
 
 class FriendFragment : Fragment() {
@@ -30,6 +32,7 @@ class FriendFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_friend, null, false)
     }
 
+    @SuppressLint("RtlHardcoded")
     override fun onStart() {
         super.onStart()
         listView = requireView().findViewById(R.id.listView)
@@ -76,6 +79,67 @@ class FriendFragment : Fragment() {
             false
         }
 
+        listView.setOnItemLongClickListener { p0, p1, p2, p3 ->
+            val popupMenu = PopupMenu(requireContext(), p1)
+            popupMenu.menuInflater.inflate(R.menu.friend, popupMenu.menu)
+            popupMenu.gravity = Gravity.RIGHT
+            popupMenu.setOnMenuItemClickListener { p4 ->
+                when (p4.itemId) {
+                    R.id.add_all -> {
+                        for (group in groups.toList()) {
+                            group.check = true
+                            group.checkBox?.isChecked = true
+                        }
+
+                        for (childs in child.toList()) {
+                            for (child in childs.toList()) {
+                                if (!child.check) qqlist.add(child.friend)
+                                child.check = true
+                                child.checkBox?.isChecked = true
+                            }
+                        }
+                    }
+
+                    R.id.clear_all -> {
+                        qqlist.clear()
+                        for (group in groups.toList()) {
+                            group.check = false
+                            group.checkBox?.isChecked = false
+                        }
+
+                        for (childs in child.toList()) {
+                            for (child in childs.toList()) {
+                                if (child.check) qqlist.remove(child.friend)
+                                child.check = false
+                                child.checkBox?.isChecked = false
+                            }
+                        }
+                    }
+
+                    R.id.open_all -> {
+                        var i = 0
+                        while (i < groups.size) {
+                            listView.expandGroup(i)
+                            i++
+                        }
+                    }
+
+                    R.id.close_all -> {
+                        var i = 0
+                        while (i < groups.size) {
+                            listView.collapseGroup(i)
+                            i++
+                        }
+                    }
+
+                    else -> {}
+                }
+                false
+            }
+            popupMenu.show()
+            false
+        }
+
         try {
             initData()
         } catch (e: Exception) {
@@ -89,7 +153,7 @@ class FriendFragment : Fragment() {
         child.clear()
         items.clear()
         refresh.isRefreshing = true
-        for (friendGroup in Const.bot!!.friendGroups.asCollection().toList()) {
+        for (friendGroup in bot!!.friendGroups.asCollection().toList()) {
             groups.add(GroupBean("${friendGroup.name}  (${friendGroup.count})"))
             for (friend in friendGroup.friends.toList()) {
                 items.add(ItemsBean(friend, friend.id, friend.remark))
