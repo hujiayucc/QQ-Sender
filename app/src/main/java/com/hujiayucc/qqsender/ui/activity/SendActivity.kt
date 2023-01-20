@@ -81,7 +81,7 @@ class SendActivity : AppCompatActivity() {
                     runOnUiThread {
                         alertDialog.show()
                     }
-                    var int = 0
+                    var int: Int
                     var success = 0
                     var fail = 0
                     when (type) {
@@ -154,6 +154,7 @@ class SendActivity : AppCompatActivity() {
                         }
 
                         send_type_group_friend -> {
+                            int = 0
                             for (number in numberlist.toList()) {
                                 int++
                                 try {
@@ -172,7 +173,7 @@ class SendActivity : AppCompatActivity() {
                                         alertDialog.dismiss()
                                         AlertDialog.Builder(this)
                                             .setTitle("发送完成")
-                                            .setMessage("共发送：${qqlist.size}\n成功：$success\n失败：$fail")
+                                            .setMessage("共发送：${numberlist.size}\n成功：$success\n失败：$fail")
                                             .setCancelable(false)
                                             .setPositiveButton("关闭", object : DialogInterface.OnClickListener {
                                                 override fun onClick(p0: DialogInterface?, p1: Int) {
