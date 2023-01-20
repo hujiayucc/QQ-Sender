@@ -16,8 +16,9 @@ import com.hujiayucc.qqsender.ui.fragment.FriendFragment
 import com.hujiayucc.qqsender.ui.fragment.GroupFragment
 import com.hujiayucc.qqsender.utils.Const.Companion.bot
 import com.hujiayucc.qqsender.utils.Const.Companion.grouplist
-import com.hujiayucc.qqsender.utils.Const.Companion.page
 import com.hujiayucc.qqsender.utils.Const.Companion.qqlist
+import com.hujiayucc.qqsender.utils.Const.Companion.send_type_friend
+import com.hujiayucc.qqsender.utils.Const.Companion.send_type_group
 import com.hujiayucc.qqsender.utils.Toast
 
 
@@ -26,6 +27,7 @@ class MainActivity : BaseActivity() {
     private lateinit var viewPager: ViewPager
     private val fragmentList = ArrayList<Fragment>()
     private lateinit var adapter: BaseAdapter
+    private var type = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tabLayout = binding.tabLayout
@@ -42,7 +44,7 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                page = position
+                type = position + 1
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -73,21 +75,23 @@ class MainActivity : BaseActivity() {
             }
 
             R.id.send -> {
-                when (page) {
-                    0 -> {
+                when (type) {
+                    send_type_friend -> {
                         if (qqlist.size < 1) {
                             Toast.Long("先选择发送目标吧")
                         } else {
                             val intent = Intent(applicationContext, SendActivity::class.java)
+
                             startActivity(intent)
                         }
                     }
 
-                    1 -> {
+                    send_type_group -> {
                         if (grouplist.size < 1) {
                             Toast.Long("先选择发送目标吧")
                         } else {
                             val intent = Intent(applicationContext, SendActivity::class.java)
+                            intent.putExtra("type", type)
                             startActivity(intent)
                         }
                     }

@@ -40,5 +40,9 @@
 
         <activity android:name=".ui.activity.SendActivity"
                   android:exported="false"/>
+
+        <activity android:name=".ui.activity.SendGFActivity"
+                  android:exported="false"
+                  android:label="选择全成员"/>
     </application>
 </manifest>

@@ -33,8 +33,8 @@ class FriendFragment : Fragment() {
     }
 
     @SuppressLint("RtlHardcoded")
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         listView = requireView().findViewById(R.id.listView)
         refresh = requireView().findViewById(R.id.refresh)
         refresh.setColorSchemeColors(requireContext().getColor(android.R.color.holo_orange_light))
@@ -134,10 +134,10 @@ class FriendFragment : Fragment() {
 
                     else -> {}
                 }
-                false
+                true
             }
             popupMenu.show()
-            false
+            true
         }
 
         try {

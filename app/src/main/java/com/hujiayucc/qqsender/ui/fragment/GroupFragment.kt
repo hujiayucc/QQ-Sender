@@ -1,6 +1,7 @@
 package com.hujiayucc.qqsender.ui.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -10,7 +11,9 @@ import android.widget.ListView
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.hujiayucc.qqsender.Applications
 import com.hujiayucc.qqsender.R
+import com.hujiayucc.qqsender.ui.activity.SendGFActivity
 import com.hujiayucc.qqsender.ui.base.BaseListAdapter
 import com.hujiayucc.qqsender.ui.base.GroupsBean
 import com.hujiayucc.qqsender.utils.Const
@@ -28,8 +31,8 @@ class GroupFragment : Fragment() {
     }
 
     @SuppressLint("RtlHardcoded")
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         listView = requireView().findViewById(R.id.listView)
         refresh = requireView().findViewById(R.id.refresh)
         refresh.setColorSchemeColors(requireContext().getColor(android.R.color.holo_orange_light))
@@ -42,7 +45,7 @@ class GroupFragment : Fragment() {
         }
 
         listView.setOnItemClickListener { p0, p1, p2, p3 ->
-            val info = groups.get(p2)
+            val info = groups[p2]
             info.check = !info.check
             info.checkBox?.isChecked = info.check
             if (info.check)
@@ -83,12 +86,18 @@ class GroupFragment : Fragment() {
                         }
                     }
 
+                    R.id.open -> {
+                        val intent = Intent(Applications.context, SendGFActivity::class.java)
+                        intent.putExtra("qq", groups[p2].group.id)
+                        startActivity(intent)
+                    }
+
                     else -> {}
                 }
-                false
+                true
             }
             popupMenu.show()
-            false
+            true
         }
 
         try {

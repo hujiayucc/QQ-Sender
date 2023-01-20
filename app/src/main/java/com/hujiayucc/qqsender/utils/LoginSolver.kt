@@ -24,7 +24,7 @@ class LoginSolver(private val context: Context) : LoginSolver() {
     }
 
     override suspend fun onSolveDeviceVerification(
-        bot: Bot, requests: DeviceVerificationRequests
+        bot: Bot, requests: DeviceVerificationRequests,
     ): DeviceVerificationResult {
         sendVerify()
         verificationResult = CompletableDeferred()

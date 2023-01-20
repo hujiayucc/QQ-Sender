@@ -7,11 +7,9 @@ import com.hujiayucc.qqsender.utils.Const.Companion.bot_dir
 import com.hujiayucc.qqsender.utils.Const.Companion.editor
 import com.hujiayucc.qqsender.utils.Const.Companion.log_dir
 import com.hujiayucc.qqsender.utils.Const.Companion.settings
-import net.mamoe.mirai.utils.MiraiInternalApi
 import java.io.File
 
 class Applications : Application() {
-    @MiraiInternalApi
     override fun onCreate() {
         super.onCreate()
         init()

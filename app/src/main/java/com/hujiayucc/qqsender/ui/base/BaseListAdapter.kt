@@ -14,7 +14,7 @@ import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 
 class BaseListAdapter(
-    val groupList: List<GroupsBean>
+    val groupList: List<GroupsBean>,
 ) : BaseAdapter() {
     override fun getCount(): Int {
         return groupList.size

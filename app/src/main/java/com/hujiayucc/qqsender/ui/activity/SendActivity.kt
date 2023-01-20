@@ -13,10 +13,14 @@ import androidx.core.view.WindowCompat
 import com.google.android.material.slider.Slider
 import com.hujiayucc.qqsender.R
 import com.hujiayucc.qqsender.databinding.ActivitySendBinding
-import com.hujiayucc.qqsender.utils.Const
 import com.hujiayucc.qqsender.utils.Const.Companion.bot
 import com.hujiayucc.qqsender.utils.Const.Companion.grouplist
+import com.hujiayucc.qqsender.utils.Const.Companion.numberlist
 import com.hujiayucc.qqsender.utils.Const.Companion.qqlist
+import com.hujiayucc.qqsender.utils.Const.Companion.send_type_friend
+import com.hujiayucc.qqsender.utils.Const.Companion.send_type_group
+import com.hujiayucc.qqsender.utils.Const.Companion.send_type_group_friend
+import com.hujiayucc.qqsender.utils.Const.Companion.send_type_null
 import com.hujiayucc.qqsender.utils.Toast
 import kotlinx.coroutines.launch
 import net.mamoe.mirai.message.data.Message
@@ -29,10 +33,12 @@ class SendActivity : AppCompatActivity() {
     private lateinit var sider: Slider
     private lateinit var message: EditText
     private var yc = 3000
+    private var type = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
+        type = intent.extras?.getInt("type") ?: 0
         binding = ActivitySendBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
@@ -78,8 +84,11 @@ class SendActivity : AppCompatActivity() {
                     var int = 0
                     var success = 0
                     var fail = 0
-                    when (Const.page) {
-                        0 -> {
+                    when (type) {
+                        send_type_null -> finish()
+
+                        send_type_friend -> {
+                            int = 0
                             for (friend in qqlist.toList()) {
                                 int++
                                 try {
@@ -92,7 +101,7 @@ class SendActivity : AppCompatActivity() {
                                     fail++
                                     e.printStackTrace()
                                 }
-                                Thread.sleep(yc.toLong())
+                                if (qqlist.size > 1) Thread.sleep(yc.toLong())
                                 if (int >= qqlist.size) {
                                     runOnUiThread {
                                         alertDialog.dismiss()
@@ -111,7 +120,8 @@ class SendActivity : AppCompatActivity() {
                             }
                         }
 
-                        1 -> {
+                        send_type_group -> {
+                            int = 0
                             for (group in grouplist.toList()) {
                                 int++
                                 try {
@@ -124,7 +134,39 @@ class SendActivity : AppCompatActivity() {
                                     fail++
                                     e.printStackTrace()
                                 }
-                                Thread.sleep(yc.toLong())
+                                if (grouplist.size > 1) Thread.sleep(yc.toLong())
+                                if (int >= qqlist.size) {
+                                    runOnUiThread {
+                                        alertDialog.dismiss()
+                                        AlertDialog.Builder(this)
+                                            .setTitle("发送完成")
+                                            .setMessage("共发送：${qqlist.size}\n成功：$success\n失败：$fail")
+                                            .setCancelable(false)
+                                            .setPositiveButton("关闭", object : DialogInterface.OnClickListener {
+                                                override fun onClick(p0: DialogInterface?, p1: Int) {
+                                                    p0?.dismiss()
+                                                }
+                                            })
+                                            .create().show()
+                                    }
+                                }
+                            }
+                        }
+
+                        send_type_group_friend -> {
+                            for (number in numberlist.toList()) {
+                                int++
+                                try {
+                                    val message: Message = PlainText(this@SendActivity.message.text)
+                                    bot!!.launch {
+                                        number.sendMessage(message)
+                                    }
+                                    success++
+                                } catch (e: Exception) {
+                                    fail++
+                                    e.printStackTrace()
+                                }
+                                if (numberlist.size > 1) Thread.sleep(yc.toLong())
                                 if (int >= qqlist.size) {
                                     runOnUiThread {
                                         alertDialog.dismiss()

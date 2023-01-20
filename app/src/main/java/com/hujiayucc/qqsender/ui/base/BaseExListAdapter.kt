@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso
 class BaseExListAdapter(
     val context: Context,
     val group: List<GroupBean>,
-    val child: List<List<ItemsBean>>
+    val child: List<List<ItemsBean>>,
 ) : BaseExpandableListAdapter() {
 
     /** 父项的个数 */
@@ -120,7 +120,7 @@ class BaseExListAdapter(
         childPosition: Int,
         isLastChild: Boolean,
         convertViews: View?,
-        parent: ViewGroup?
+        parent: ViewGroup?,
     ): View {
         var convertView = convertViews
         val viewHolder: ItemsHolder
