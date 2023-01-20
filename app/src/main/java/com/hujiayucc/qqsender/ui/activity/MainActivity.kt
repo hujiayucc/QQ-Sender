@@ -81,7 +81,7 @@ class MainActivity : BaseActivity() {
                             Toast.Long("先选择发送目标吧")
                         } else {
                             val intent = Intent(applicationContext, SendActivity::class.java)
-
+                            intent.putExtra("type", type)
                             startActivity(intent)
                         }
                     }
