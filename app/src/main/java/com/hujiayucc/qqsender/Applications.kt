@@ -20,7 +20,6 @@ class Applications : Application() {
     /** 初始化 **/
     private fun init() {
         context = applicationContext
-        packageName
         if (!File(bot_dir).exists()) File(bot_dir).mkdirs()
         if (!File(log_dir).exists()) File(log_dir).mkdirs()
     }

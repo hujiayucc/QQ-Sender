@@ -72,6 +72,7 @@ class VerifyActivity : AppCompatActivity() {
                 val jsData = gson.parse(data)
                 if (method == "onVerifyCAPTCHA") {
                     verificationResult.complete(jsData.asJsonObject["ticket"].asString)
+                    finish()
                 }
             }
         }

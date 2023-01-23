@@ -12,6 +12,7 @@ import net.mamoe.mirai.utils.DeviceVerificationRequests
 import net.mamoe.mirai.utils.DeviceVerificationResult
 import net.mamoe.mirai.utils.LoginSolver
 
+/** 登录验证器 */
 class LoginSolver(private val context: Context) : LoginSolver() {
     override suspend fun onSolvePicCaptcha(bot: Bot, data: ByteArray): String? {
         return null
@@ -32,7 +33,6 @@ class LoginSolver(private val context: Context) : LoginSolver() {
             requests.sms?.requestSms()
             return requests.sms!!.solved(verificationResult.await())
         } catch (e: RetryLaterException) {
-            e.printStackTrace()
             onSolveSliderCaptcha(bot, requests.fallback!!.url)
             return requests.fallback!!.solved()
         }
