@@ -14,8 +14,8 @@ android {
         applicationId "com.hujiayucc.qqsender"
         minSdk 23
         targetSdk 33
-        versionCode 95
-        versionName "2.5"
+        versionCode 125
+        versionName "2.5.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,7 +53,7 @@ android {
 }
 
 dependencies {
-    String mirai_version = "2.13.2"
+    String mirai_version = "2.13.4"
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
@@ -63,6 +63,7 @@ dependencies {
     api(platform("net.mamoe:mirai-bom:$mirai_version"))
     api("net.mamoe:mirai-core-api")     // 编译代码使用
     runtimeOnly("net.mamoe:mirai-core") // 运行时使用
+
     implementation 'com.jacktuotuo.customview:verificationcodeview:1.0.5'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
