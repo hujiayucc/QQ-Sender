@@ -8,12 +8,12 @@ plugins {
 //noinspection GroovyMissingReturnStatement
 android {
     namespace 'com.hujiayucc.qqsender'
-    compileSdk 33
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.hujiayucc.qqsender"
         minSdk 23
-        targetSdk 33
+        targetSdk 35
         versionCode 125
         versionName "2.5.1"
 
@@ -22,14 +22,12 @@ android {
 
     buildTypes {
         release {
-            zipAlignEnabled true
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         debug {
-            zipAlignEnabled true
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -53,11 +51,11 @@ android {
 }
 
 dependencies {
-    String mirai_version = "2.13.4"
+    String mirai_version = "2.16.0"
 
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
 
     implementation "net.mamoe:mirai-core:$mirai_version"
     api(platform("net.mamoe:mirai-bom:$mirai_version"))
@@ -71,6 +69,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
