@@ -63,10 +63,10 @@ dependencies {
     runtimeOnly("net.mamoe:mirai-core") // 运行时使用
 
     implementation 'com.jacktuotuo.customview:verificationcodeview:1.0.5'
-    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.12.1'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     //noinspection GradleDependency
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
